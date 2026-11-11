@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ViralKaya Studio - AI Social Media & Affiliate Script Generator</title>
+    <title>ViralKaya Studio - AI Video & Text Post Generator</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
@@ -77,22 +77,36 @@
                         <!-- Target Platform -->
                         <div>
                             <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Platform Target</label>
-                            <div class="grid grid-cols-4 gap-2">
-                                <button type="button" onclick="selectPlatform('tiktok')" id="btn-tiktok" class="platform-btn active p-3 rounded-xl border border-indigo-500 bg-indigo-600/20 text-indigo-300 font-medium text-xs flex flex-col items-center gap-1 transition">
-                                    <i class="fa-brands fa-tiktok text-lg"></i>
+                            <div class="grid grid-cols-4 gap-2 mb-2">
+                                <button type="button" onclick="selectPlatform('tiktok')" id="btn-tiktok" class="platform-btn active p-2.5 rounded-xl border border-indigo-500 bg-indigo-600/20 text-indigo-300 font-medium text-xs flex flex-col items-center gap-1 transition">
+                                    <i class="fa-brands fa-tiktok text-base"></i>
                                     TikTok
                                 </button>
-                                <button type="button" onclick="selectPlatform('reels')" id="btn-reels" class="platform-btn p-3 rounded-xl border border-slate-800 bg-slate-800/40 text-slate-400 hover:text-slate-200 font-medium text-xs flex flex-col items-center gap-1 transition">
-                                    <i class="fa-brands fa-instagram text-lg"></i>
+                                <button type="button" onclick="selectPlatform('reels')" id="btn-reels" class="platform-btn p-2.5 rounded-xl border border-slate-800 bg-slate-800/40 text-slate-400 hover:text-slate-200 font-medium text-xs flex flex-col items-center gap-1 transition">
+                                    <i class="fa-brands fa-instagram text-base"></i>
                                     Reels
                                 </button>
-                                <button type="button" onclick="selectPlatform('shorts')" id="btn-shorts" class="platform-btn p-3 rounded-xl border border-slate-800 bg-slate-800/40 text-slate-400 hover:text-slate-200 font-medium text-xs flex flex-col items-center gap-1 transition">
-                                    <i class="fa-brands fa-youtube text-lg"></i>
+                                <button type="button" onclick="selectPlatform('shorts')" id="btn-shorts" class="platform-btn p-2.5 rounded-xl border border-slate-800 bg-slate-800/40 text-slate-400 hover:text-slate-200 font-medium text-xs flex flex-col items-center gap-1 transition">
+                                    <i class="fa-brands fa-youtube text-base"></i>
                                     Shorts
                                 </button>
-                                <button type="button" onclick="selectPlatform('affiliate')" id="btn-affiliate" class="platform-btn p-3 rounded-xl border border-slate-800 bg-slate-800/40 text-slate-400 hover:text-slate-200 font-medium text-xs flex flex-col items-center gap-1 transition">
-                                    <i class="fa-solid fa-cart-shopping text-lg"></i>
+                                <button type="button" onclick="selectPlatform('affiliate')" id="btn-affiliate" class="platform-btn p-2.5 rounded-xl border border-slate-800 bg-slate-800/40 text-slate-400 hover:text-slate-200 font-medium text-xs flex flex-col items-center gap-1 transition">
+                                    <i class="fa-solid fa-cart-shopping text-base"></i>
                                     Affiliate
+                                </button>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button type="button" onclick="selectPlatform('facebook')" id="btn-facebook" class="platform-btn p-2.5 rounded-xl border border-slate-800 bg-slate-800/40 text-slate-400 hover:text-slate-200 font-medium text-xs flex flex-col items-center gap-1 transition">
+                                    <i class="fa-brands fa-facebook text-base"></i>
+                                    Facebook Status
+                                </button>
+                                <button type="button" onclick="selectPlatform('threads')" id="btn-threads" class="platform-btn p-2.5 rounded-xl border border-slate-800 bg-slate-800/40 text-slate-400 hover:text-slate-200 font-medium text-xs flex flex-col items-center gap-1 transition">
+                                    <i class="fa-solid fa-[#000000] fa-at text-base"></i>
+                                    Threads
+                                </button>
+                                <button type="button" onclick="selectPlatform('x')" id="btn-x" class="platform-btn p-2.5 rounded-xl border border-slate-800 bg-slate-800/40 text-slate-400 hover:text-slate-200 font-medium text-xs flex flex-col items-center gap-1 transition">
+                                    <i class="fa-brands fa-x-twitter text-base"></i>
+                                    X (Twitter)
                                 </button>
                             </div>
                         </div>
@@ -106,11 +120,11 @@
 
                         <!-- Key Selling Points -->
                         <div>
-                            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Fitur / Keunggulan Utama (KSP)</label>
+                            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Fitur / Poin Utama</label>
                             <textarea id="input-ksp" rows="3" required placeholder="Contoh: 
 - 3 tingkat kecerahan mata anti silau
 - Baterai tahan 8 jam
-- Ada tempat tempat hp & pena" 
+- Ada tempat hp & pena" 
                                 class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"></textarea>
                         </div>
 
@@ -140,7 +154,7 @@
                         <!-- Submit Button -->
                         <button type="submit" id="btn-generate" class="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white font-bold py-3.5 px-6 rounded-xl transition transform active:scale-95 shadow-lg shadow-indigo-500/25 flex items-center justify-center space-x-2">
                             <i class="fa-solid fa-sparkles"></i>
-                            <span>Buat Script & Post Viral</span>
+                            <span>Buat Konten Viral</span>
                         </button>
                     </form>
                 </div>
@@ -152,10 +166,10 @@
                 <!-- Initial Empty State -->
                 <div id="output-placeholder" class="bg-slate-900/50 border border-dashed border-slate-800 rounded-2xl p-12 text-center flex flex-col items-center justify-center min-h-[500px]">
                     <div class="w-16 h-16 bg-slate-800 rounded-2xl flex items-center justify-center text-slate-600 mb-4">
-                        <i class="fa-solid fa-clapperboard text-3xl"></i>
+                        <i class="fa-solid fa-pen-to-square text-3xl"></i>
                     </div>
-                    <h3 class="text-base font-semibold text-slate-300 mb-1">Hasil Script Akan Muncul Di Sini</h3>
-                    <p class="text-xs text-slate-500 max-w-sm">Isi parameter di sebelah kiri lalu klik tombol "Buat Script" untuk merancang konten viral Anda.</p>
+                    <h3 class="text-base font-semibold text-slate-300 mb-1">Hasil Postingan / Script Akan Muncul Di Sini</h3>
+                    <p class="text-xs text-slate-500 max-w-sm">Pilih platform (Video atau Teks FB/Threads/X), isi detail di sebelah kiri, lalu klik buat konten.</p>
                 </div>
 
                 <!-- Loading State -->
@@ -164,8 +178,8 @@
                         <div class="absolute inset-0 rounded-full border-4 border-slate-800"></div>
                         <div class="absolute inset-0 rounded-full border-4 border-indigo-500 border-t-transparent animate-spin"></div>
                     </div>
-                    <h3 class="text-base font-semibold text-slate-200">Menyusun Hook & Script Organik...</h3>
-                    <p class="text-xs text-slate-400 mt-1">Menganalisis pola viral & struktur narasi yang memicu konversi.</p>
+                    <h3 class="text-base font-semibold text-slate-200">Merancang Konten Berkonversi Tinggi...</h3>
+                    <p class="text-xs text-slate-400 mt-1">Mengoptimalkan hook, gaya bahasa, dan rekomendasi postingan.</p>
                 </div>
 
                 <!-- Output Display Result -->
@@ -174,32 +188,47 @@
                     <!-- Action Bar -->
                     <div class="flex items-center justify-between bg-slate-900 border border-slate-800 rounded-xl p-4">
                         <span class="text-xs font-semibold text-indigo-400 flex items-center">
-                            <i class="fa-solid fa-circle-check mr-2"></i> Script Berhasil Dibuat
+                            <i class="fa-solid fa-circle-check mr-2"></i> Konten Siap Dipublikasikan
                         </span>
                         <div class="flex items-center space-x-2">
                             <button onclick="saveCurrentDraft()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-medium transition">
                                 <i class="fa-solid fa-bookmark mr-1"></i> Simpan Draft
                             </button>
                             <button onclick="copyFullScript()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-semibold transition shadow-md shadow-indigo-500/20">
-                                <i class="fa-solid fa-copy mr-1"></i> Salin Semua
+                                <i class="fa-solid fa-copy mr-1"></i> Salin Semua Teks
                             </button>
                         </div>
                     </div>
 
-                    <!-- 3 Hook Options -->
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                    <!-- Output Teks Khusus FB / Threads / X -->
+                    <div id="text-post-section" class="hidden bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-indigo-400 flex items-center">
+                                <i id="text-platform-icon" class="mr-2"></i> Draft Post <span id="text-platform-name"></span>
+                            </h3>
+                            <button onclick="copyToClipboard('text-post-content')" class="text-xs bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-lg hover:bg-indigo-600/40 transition">
+                                <i class="fa-solid fa-copy mr-1"></i> Salin Status
+                            </button>
+                        </div>
+                        <div id="text-post-content" class="bg-slate-950 p-4 rounded-xl text-xs sm:text-sm text-slate-200 leading-relaxed whitespace-pre-line border border-slate-800/80 font-sans">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- 3 Hook Options (Hanya untuk Video) -->
+                    <div id="video-hook-section" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
                         <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center">
-                            <i class="fa-solid fa-magnet text-amber-400 mr-2"></i> Option Hook (3 Detik Pertama)
+                            <i class="fa-solid fa-magnet text-amber-400 mr-2"></i> Opsi Hook Video (3 Detik Pertama)
                         </h3>
                         <div class="space-y-3" id="hook-container">
                             <!-- Injected dynamically -->
                         </div>
                     </div>
 
-                    <!-- Storyboard & Scene Breakdown -->
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                    <!-- Storyboard & Scene Breakdown (Hanya untuk Video) -->
+                    <div id="video-scene-section" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
                         <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4 flex items-center">
-                            <i class="fa-solid fa-film text-purple-400 mr-2"></i> Storyboard & Script Breakdown
+                            <i class="fa-solid fa-film text-purple-400 mr-2"></i> Storyboard & Panduan Take Video
                         </h3>
                         <div class="space-y-4" id="scene-container">
                             <!-- Injected dynamically -->
@@ -207,7 +236,7 @@
                     </div>
 
                     <!-- Caption & Hashtags -->
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+                    <div id="video-caption-section" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
                         <div>
                             <div class="flex items-center justify-between mb-2">
                                 <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center">
@@ -240,7 +269,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h2 class="text-xl font-bold text-white">Draft Tersimpan</h2>
-                    <p class="text-xs text-slate-400">Kumpulan script yang sudah Anda buat dan simpan sebelumnya.</p>
+                    <p class="text-xs text-slate-400">Kumpulan script dan status yang sudah Anda buat sebelumnya.</p>
                 </div>
                 <button onclick="clearAllDrafts()" class="px-3 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 rounded-lg text-xs font-medium transition">
                     Hapus Semua Draft
@@ -271,8 +300,10 @@
                 btn.classList.add('border-slate-800', 'bg-slate-800/40', 'text-slate-400');
             });
             const activeBtn = document.getElementById(`btn-${platform}`);
-            activeBtn.classList.add('active', 'border-indigo-500', 'bg-indigo-600/20', 'text-indigo-300');
-            activeBtn.classList.remove('border-slate-800', 'bg-slate-800/40', 'text-slate-400');
+            if (activeBtn) {
+                activeBtn.classList.add('active', 'border-indigo-500', 'bg-indigo-600/20', 'text-indigo-300');
+                activeBtn.classList.remove('border-slate-800', 'bg-slate-800/40', 'text-slate-400');
+            }
         }
 
         function switchTab(tab) {
@@ -312,15 +343,19 @@
                 const firstKsp = kspArray[0] || 'kualitas terbaik di kelasnya';
                 const secondKsp = kspArray[1] || 'desain praktis dan efisien';
 
+                const isTextPlatform = ['facebook', 'threads', 'x'].includes(currentPlatform);
+
                 generatedData = {
                     id: Date.now(),
                     timestamp: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }),
                     title: title,
                     platform: currentPlatform,
+                    isTextPlatform: isTextPlatform,
                     niche: niche,
                     tone: tone,
+                    textPost: generateTextPostContent(currentPlatform, title, firstKsp, secondKsp, tone),
                     hooks: [
-                        { type: 'Pattern Interrupt (Visual/Mental)', text: `Stop scroll! Kalau kamu masih pakai barang lama, fix kamu rugi besar karena ada ${title} ini!` },
+                        { type: 'Pattern Interrupt (Visual/Mental)', text: `Stop scroll! Kalau kamu masih pakai cara lama, fix kamu rugi besar karena ada ${title} ini!` },
                         { type: 'Curiosity & FOMO', text: `Jujur kaget banget pas nemu ${title} ini... Ternyata fitur ${firstKsp} nya beneran selucu ini?` },
                         { type: 'Problem - Solution', text: `Pernah gak sih ngerasa ribet banget saat urusan ini? Nih aku kasih racun ${title} yang udah ada ${secondKsp}.` }
                     ],
@@ -338,48 +373,89 @@
                 renderOutput(generatedData);
                 document.getElementById('output-loading').classList.add('hidden');
                 document.getElementById('output-result').classList.remove('hidden');
-            }, 1200);
+            }, 1000);
+        }
+
+        function generateTextPostContent(platform, title, ksp1, ksp2, tone) {
+            if (platform === 'facebook') {
+                return `[STATUS FACEBOOK PROMOSI / STORYTELLING]\n\nJujur ya, dari kemarin sering banget ngerasa ribet sama urusan harian. Tapi pas gak sengaja nyobain **${title}**, ternyata beda banget rasanya! 😮\n\nYang paling aku suka:\n👉 ${ksp1}\n👉 ${ksp2}\n\nBisa dibilang ini salah satu pembelian terbaik bulan ini sih. Buat temen-temen yang mau samaan atau lagi nyari rekomendasi serupa, langsung cek link produknya di kolom komentar ya! 👇\n\n#Rekomendasi #Shopping #ReviewJujur`;
+            } else if (platform === 'threads') {
+                return `[POSTINGAN THREADS]\n\nSedikit curhat... Ternyata nyari ${title} yang beneran worth it tuh susah-susah gampang ya.\n\nAkhirnya nemu yang satu ini. Poin plusnya:\n• ${ksp1}\n• ${ksp2}\n\nMenurut kalian gimana? Ada yang udah pakai juga atau ada rekomendasi lain? Coba diskusikan di kolom balasan 🧵👇`;
+            } else if (platform === 'x') {
+                return `[TWEET / THREAD X]\n\nBaru aja nemu solusi simpel buat yang sering keluhan harian. ${title} ini beneran ngebantu banget! 🧵\n\nHighlight utamanya:\n1. ${ksp1}\n2. ${ksp2}\n\nBener-bener rekomen buat di-checkout mumpung lagi ada promo. Tautan pembelian ada di tweet balasan di bawah ya! 👇 #XFinds`;
+            }
+            return '';
         }
 
         function renderOutput(data) {
-            // Render Hooks
-            const hookBox = document.getElementById('hook-container');
-            hookBox.innerHTML = data.hooks.map((h, idx) => `
-                <div class="bg-slate-950 border border-slate-800 p-3.5 rounded-xl flex items-start space-x-3">
-                    <span class="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-400 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">${idx + 1}</span>
-                    <div class="flex-1">
-                        <span class="text-[10px] font-bold text-slate-500 tracking-wider uppercase block mb-0.5">${h.type}</span>
-                        <p class="text-xs text-slate-200 font-medium font-mono">"${h.text}"</p>
-                    </div>
-                </div>
-            `).join('');
+            const textSection = document.getElementById('text-post-section');
+            const videoHookSec = document.getElementById('video-hook-section');
+            const videoSceneSec = document.getElementById('video-scene-section');
+            const videoCapSec = document.getElementById('video-caption-section');
 
-            // Render Storyboard Scenes
-            const sceneBox = document.getElementById('scene-container');
-            sceneBox.innerHTML = data.scenes.map(s => `
-                <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-2">
-                    <div class="flex items-center justify-between border-b border-slate-800/60 pb-2">
-                        <span class="text-[11px] font-bold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">${s.time}</span>
-                        <span class="text-[10px] font-semibold text-slate-400 uppercase">On-Screen Text: <span class="text-amber-300 font-mono">${s.text}</span></span>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1 text-xs">
-                        <div>
-                            <span class="text-[10px] font-bold text-slate-500 uppercase block">Visual / Shot:</span>
-                            <p class="text-slate-300">${s.visual}</p>
-                        </div>
-                        <div>
-                            <span class="text-[10px] font-bold text-slate-500 uppercase block">Voiceover / Audio:</span>
-                            <p class="text-slate-300 font-mono">${s.audio}</p>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
+            if (data.isTextPlatform) {
+                // Render Text Post Mode (FB, Threads, X)
+                textSection.classList.remove('hidden');
+                videoHookSec.classList.add('hidden');
+                videoSceneSec.classList.add('hidden');
 
-            // Render Caption & Hashtags
-            document.getElementById('caption-text').textContent = data.caption;
-            document.getElementById('hashtag-container').innerHTML = data.hashtags.map(h => `
-                <span class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-lg border border-slate-700/60 transition cursor-pointer">${h}</span>
-            `).join('');
+                const nameMap = { facebook: 'Facebook', threads: 'Threads', x: 'X (Twitter)' };
+                const iconMap = { facebook: 'fa-brands fa-facebook text-blue-500', threads: 'fa-solid fa-at text-slate-300', x: 'fa-brands fa-x-twitter text-slate-300' };
+
+                document.getElementById('text-platform-name').textContent = nameMap[data.platform];
+                document.getElementById('text-platform-icon').className = `${iconMap[data.platform]} mr-2`;
+                document.getElementById('text-post-content').textContent = data.textPost;
+
+                // Render Caption & Hashtag tetap tersedia di bawah
+                videoCapSec.classList.remove('hidden');
+                document.getElementById('caption-text').textContent = data.caption;
+                document.getElementById('hashtag-container').innerHTML = data.hashtags.map(h => `
+                    <span class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg border border-slate-700/60">${h}</span>
+                `).join('');
+            } else {
+                // Render Video Mode (TikTok, Reels, Shorts, Affiliate)
+                textSection.classList.add('hidden');
+                videoHookSec.classList.remove('hidden');
+                videoSceneSec.classList.remove('hidden');
+                videoCapSec.classList.remove('hidden');
+
+                // Render Hooks
+                document.getElementById('hook-container').innerHTML = data.hooks.map((h, idx) => `
+                    <div class="bg-slate-950 border border-slate-800 p-3.5 rounded-xl flex items-start space-x-3">
+                        <span class="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-400 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">${idx + 1}</span>
+                        <div class="flex-1">
+                            <span class="text-[10px] font-bold text-slate-500 tracking-wider uppercase block mb-0.5">${h.type}</span>
+                            <p class="text-xs text-slate-200 font-medium font-mono">"${h.text}"</p>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Render Storyboard
+                document.getElementById('scene-container').innerHTML = data.scenes.map(s => `
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-2">
+                        <div class="flex items-center justify-between border-b border-slate-800/60 pb-2">
+                            <span class="text-[11px] font-bold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">${s.time}</span>
+                            <span class="text-[10px] font-semibold text-slate-400 uppercase">On-Screen Text: <span class="text-amber-300 font-mono">${s.text}</span></span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1 text-xs">
+                            <div>
+                                <span class="text-[10px] font-bold text-slate-500 uppercase block">Visual / Shot:</span>
+                                <p class="text-slate-300">${s.visual}</p>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-bold text-slate-500 uppercase block">Voiceover / Audio:</span>
+                                <p class="text-slate-300 font-mono">${s.audio}</p>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Render Caption & Hashtags
+                document.getElementById('caption-text').textContent = data.caption;
+                document.getElementById('hashtag-container').innerHTML = data.hashtags.map(h => `
+                    <span class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-lg border border-slate-700/60 transition cursor-pointer">${h}</span>
+                `).join('');
+            }
         }
 
         function saveCurrentDraft() {
@@ -418,10 +494,10 @@
                         <span class="text-[10px] text-slate-500">${d.timestamp}</span>
                     </div>
                     <h4 class="text-sm font-bold text-slate-100 line-clamp-1">${d.title}</h4>
-                    <p class="text-xs text-slate-400 line-clamp-2">${d.caption}</p>
+                    <p class="text-xs text-slate-400 line-clamp-2">${d.isTextPlatform ? d.textPost : d.caption}</p>
                     <div class="flex items-center justify-between pt-2 border-t border-slate-800 text-xs">
                         <button onclick="loadDraft(${d.id})" class="text-indigo-400 hover:text-indigo-300 font-semibold flex items-center">
-                            Muat Script <i class="fa-solid fa-arrow-right ml-1"></i>
+                            Muat Konten <i class="fa-solid fa-arrow-right ml-1"></i>
                         </button>
                         <button onclick="deleteDraft(${d.id})" class="text-rose-400 hover:text-rose-300">
                             <i class="fa-solid fa-trash"></i>
@@ -435,6 +511,7 @@
             const draft = savedDrafts.find(d => d.id === id);
             if (draft) {
                 generatedData = draft;
+                selectPlatform(draft.platform);
                 switchTab('generator');
                 renderOutput(draft);
                 document.getElementById('output-placeholder').classList.add('hidden');
@@ -468,22 +545,28 @@
 
         function copyFullScript() {
             if (!generatedData) return;
-            let fullText = `=== SCRIPT VOKAL & STORYBOARD VIRAL ===\n`;
+            let fullText = `=== HASIL KONTEN VIRALKAYA STUDIO ===\n`;
             fullText += `Topik/Produk: ${generatedData.title}\n`;
             fullText += `Platform: ${generatedData.platform.toUpperCase()}\n\n`;
-            fullText += `--- PILIHAN HOOK (3 DETIK) ---\n`;
-            generatedData.hooks.forEach((h, i) => {
-                fullText += `${i+1}. [${h.type}]: "${h.text}"\n`;
-            });
-            fullText += `\n--- STORYBOARD SCENE BREAKDOWN ---\n`;
-            generatedData.scenes.forEach(s => {
-                fullText += `[${s.time}] Visual: ${s.visual}\n- Voiceover: ${s.audio}\n- Text On-Screen: ${s.text}\n\n`;
-            });
+
+            if (generatedData.isTextPlatform) {
+                fullText += `--- STATUS / POSTINGAN TEKS ---\n${generatedData.textPost}\n\n`;
+            } else {
+                fullText += `--- PILIHAN HOOK (3 DETIK) ---\n`;
+                generatedData.hooks.forEach((h, i) => {
+                    fullText += `${i+1}. [${h.type}]: "${h.text}"\n`;
+                });
+                fullText += `\n--- STORYBOARD SCENE BREAKDOWN ---\n`;
+                generatedData.scenes.forEach(s => {
+                    fullText += `[${s.time}] Visual: ${s.visual}\n- Voiceover: ${s.audio}\n- Text On-Screen: ${s.text}\n\n`;
+                });
+            }
+
             fullText += `--- CAPTION ---\n${generatedData.caption}\n\n`;
             fullText += `--- HASHTAGS ---\n${generatedData.hashtags.join(' ')}`;
 
             navigator.clipboard.writeText(fullText).then(() => {
-                alert('Seluruh Script & Storyboard berhasil disalin!');
+                alert('Seluruh teks berhasil disalin!');
             });
         }
     </script>
