@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViralKaya Studio - AI Social Media & Affiliate Script Generator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f3ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#1e1b4b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Header Navigation -->
+    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
+                    <i class="fa-solid font-black fa-bolt text-xl"></i>
+                </div>
+                <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+                    ViralKaya<span class="text-indigo-400">Studio</span>
+                </span>
+            </div>
+            
+            <nav class="flex items-center space-x-4">
+                <button id="tab-generator" onclick="switchTab('generator')" class="px-4 py-2 rounded-lg text-sm font-semibold transition bg-indigo-600 text-white shadow-md shadow-indigo-500/20">
+                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Generator
+                </button>
+                <button id="tab-saved" onclick="switchTab('saved')" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-bookmark mr-2"></i>Draft Tersimpan (<span id="saved-count">0</span>)
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- GENERATOR VIEW -->
+        <div id="view-generator" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left Panel: Input Controls -->
+            <div class="lg:col-span-5 space-y-6">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+                    <h2 class="text-lg font-bold text-white mb-4 flex items-center">
+                        <i class="fa-solid font-black fa-sliders text-indigo-400 mr-2"></i> Konfigurasi Konten
+                    </h2>
+
+                    <form id="script-form" onsubmit="generateScript(event)" class="space-y-5">
+                        
+                        <!-- Target Platform -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Platform Target</label>
+                            <div class="grid grid-cols-4 gap-2">
+                                <button type="button" onclick="selectPlatform('tiktok')" id="btn-tiktok" class="platform-btn active p-3 rounded-xl border border-indigo-500 bg-indigo-600/20 text-indigo-300 font-medium text-xs flex flex-col items-center gap-1 transition">
+                                    <i class="fa-brands fa-tiktok text-lg"></i>
+                                    TikTok
+                                </button>
+                                <button type="button" onclick="selectPlatform('reels')" id="btn-reels" class="platform-btn p-3 rounded-xl border border-slate-800 bg-slate-800/40 text-slate-400 hover:text-slate-200 font-medium text-xs flex flex-col items-center gap-1 transition">
+                                    <i class="fa-brands fa-instagram text-lg"></i>
+                                    Reels
+                                </button>
+                                <button type="button" onclick="selectPlatform('shorts')" id="btn-shorts" class="platform-btn p-3 rounded-xl border border-slate-800 bg-slate-800/40 text-slate-400 hover:text-slate-200 font-medium text-xs flex flex-col items-center gap-1 transition">
+                                    <i class="fa-brands fa-youtube text-lg"></i>
+                                    Shorts
+                                </button>
+                                <button type="button" onclick="selectPlatform('affiliate')" id="btn-affiliate" class="platform-btn p-3 rounded-xl border border-slate-800 bg-slate-800/40 text-slate-400 hover:text-slate-200 font-medium text-xs flex flex-col items-center gap-1 transition">
+                                    <i class="fa-solid fa-cart-shopping text-lg"></i>
+                                    Affiliate
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Product/Topic Title -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Nama Produk / Topik Konten</label>
+                            <input type="text" id="input-title" required placeholder="Contoh: Lampu LED Meja Belajar Lipat" 
+                                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition">
+                        </div>
+
+                        <!-- Key Selling Points -->
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Fitur / Keunggulan Utama (KSP)</label>
+                            <textarea id="input-ksp" rows="3" required placeholder="Contoh: 
+- 3 tingkat kecerahan mata anti silau
+- Baterai tahan 8 jam
+- Ada tempat tempat hp & pena" 
+                                class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"></textarea>
+                        </div>
+
+                        <!-- Niche & Target Audience -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Kategori / Niche</label>
+                                <select id="input-niche" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-3 text-sm text-white focus:outline-none focus:border-indigo-500 transition">
+                                    <option value="Gadget & Elektronik">Gadget & Elektronik</option>
+                                    <option value="Fashion & Beauty">Fashion & Beauty</option>
+                                    <option value="Peralatan Rumah">Peralatan Rumah</option>
+                                    <option value="Edukasi & Bisnis">Edukasi & Bisnis</option>
+                                    <option value="Kuliner & Makanan">Kuliner & Makanan</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Gaya Bahasa / Tone</label>
+                                <select id="input-tone" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-3 text-sm text-white focus:outline-none focus:border-indigo-500 transition">
+                                    <option value="Santai & Kasual">Santai & Kasual</option>
+                                    <option value="Sangat Memprovokasi (FOMO)">Provokatif / Hard Sell</option>
+                                    <option value="Storytelling Emosional">Storytelling / Curhat</option>
+                                    <option value="Profesional & Reviewer">Reviewer / Profesional</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" id="btn-generate" class="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white font-bold py-3.5 px-6 rounded-xl transition transform active:scale-95 shadow-lg shadow-indigo-500/25 flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-sparkles"></i>
+                            <span>Buat Script & Post Viral</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Panel: Output Workspace -->
+            <div class="lg:col-span-7">
+                
+                <!-- Initial Empty State -->
+                <div id="output-placeholder" class="bg-slate-900/50 border border-dashed border-slate-800 rounded-2xl p-12 text-center flex flex-col items-center justify-center min-h-[500px]">
+                    <div class="w-16 h-16 bg-slate-800 rounded-2xl flex items-center justify-center text-slate-600 mb-4">
+                        <i class="fa-solid fa-clapperboard text-3xl"></i>
+                    </div>
+                    <h3 class="text-base font-semibold text-slate-300 mb-1">Hasil Script Akan Muncul Di Sini</h3>
+                    <p class="text-xs text-slate-500 max-w-sm">Isi parameter di sebelah kiri lalu klik tombol "Buat Script" untuk merancang konten viral Anda.</p>
+                </div>
+
+                <!-- Loading State -->
+                <div id="output-loading" class="hidden bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center flex flex-col items-center justify-center min-h-[500px]">
+                    <div class="relative w-16 h-16 mb-4">
+                        <div class="absolute inset-0 rounded-full border-4 border-slate-800"></div>
+                        <div class="absolute inset-0 rounded-full border-4 border-indigo-500 border-t-transparent animate-spin"></div>
+                    </div>
+                    <h3 class="text-base font-semibold text-slate-200">Menyusun Hook & Script Organik...</h3>
+                    <p class="text-xs text-slate-400 mt-1">Menganalisis pola viral & struktur narasi yang memicu konversi.</p>
+                </div>
+
+                <!-- Output Display Result -->
+                <div id="output-result" class="hidden space-y-6">
+                    
+                    <!-- Action Bar -->
+                    <div class="flex items-center justify-between bg-slate-900 border border-slate-800 rounded-xl p-4">
+                        <span class="text-xs font-semibold text-indigo-400 flex items-center">
+                            <i class="fa-solid fa-circle-check mr-2"></i> Script Berhasil Dibuat
+                        </span>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="saveCurrentDraft()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-medium transition">
+                                <i class="fa-solid fa-bookmark mr-1"></i> Simpan Draft
+                            </button>
+                            <button onclick="copyFullScript()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-semibold transition shadow-md shadow-indigo-500/20">
+                                <i class="fa-solid fa-copy mr-1"></i> Salin Semua
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 3 Hook Options -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center">
+                            <i class="fa-solid fa-magnet text-amber-400 mr-2"></i> Option Hook (3 Detik Pertama)
+                        </h3>
+                        <div class="space-y-3" id="hook-container">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Storyboard & Scene Breakdown -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4 flex items-center">
+                            <i class="fa-solid fa-film text-purple-400 mr-2"></i> Storyboard & Script Breakdown
+                        </h3>
+                        <div class="space-y-4" id="scene-container">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Caption & Hashtags -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center">
+                                    <i class="fa-solid fa-align-left text-teal-400 mr-2"></i> Caption Post & CTA
+                                </h3>
+                                <button onclick="copyToClipboard('caption-text')" class="text-xs text-indigo-400 hover:underline">Salin Caption</button>
+                            </div>
+                            <div id="caption-text" class="bg-slate-950 p-4 rounded-xl text-xs text-slate-300 leading-relaxed whitespace-pre-line border border-slate-800/80">
+                                <!-- Injected dynamically -->
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center">
+                                <i class="fa-solid fa-hashtag text-pink-400 mr-2"></i> Hashtag Rekomendasi
+                            </h3>
+                            <div id="hashtag-container" class="flex flex-wrap gap-1.5">
+                                <!-- Injected dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- SAVED DRAFTS VIEW -->
+        <div id="view-saved" class="hidden space-y-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-bold text-white">Draft Tersimpan</h2>
+                    <p class="text-xs text-slate-400">Kumpulan script yang sudah Anda buat dan simpan sebelumnya.</p>
+                </div>
+                <button onclick="clearAllDrafts()" class="px-3 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 rounded-lg text-xs font-medium transition">
+                    Hapus Semua Draft
+                </button>
+            </div>
+
+            <div id="saved-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Saved items rendered here -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- App Logic -->
+    <script>
+        let currentPlatform = 'tiktok';
+        let generatedData = null;
+        let savedDrafts = JSON.parse(localStorage.getItem('viralkaya_drafts') || '[]');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateSavedCount();
+        });
+
+        function selectPlatform(platform) {
+            currentPlatform = platform;
+            document.querySelectorAll('.platform-btn').forEach(btn => {
+                btn.classList.remove('active', 'border-indigo-500', 'bg-indigo-600/20', 'text-indigo-300');
+                btn.classList.add('border-slate-800', 'bg-slate-800/40', 'text-slate-400');
+            });
+            const activeBtn = document.getElementById(`btn-${platform}`);
+            activeBtn.classList.add('active', 'border-indigo-500', 'bg-indigo-600/20', 'text-indigo-300');
+            activeBtn.classList.remove('border-slate-800', 'bg-slate-800/40', 'text-slate-400');
+        }
+
+        function switchTab(tab) {
+            const genView = document.getElementById('view-generator');
+            const savedView = document.getElementById('view-saved');
+            const tabGen = document.getElementById('tab-generator');
+            const tabSaved = document.getElementById('tab-saved');
+
+            if (tab === 'generator') {
+                genView.classList.remove('hidden');
+                savedView.classList.add('hidden');
+                tabGen.className = 'px-4 py-2 rounded-lg text-sm font-semibold transition bg-indigo-600 text-white shadow-md shadow-indigo-500/20';
+                tabSaved.className = 'px-4 py-2 rounded-lg text-sm font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition';
+            } else {
+                genView.classList.add('hidden');
+                savedView.classList.remove('hidden');
+                tabSaved.className = 'px-4 py-2 rounded-lg text-sm font-semibold transition bg-indigo-600 text-white shadow-md shadow-indigo-500/20';
+                tabGen.className = 'px-4 py-2 rounded-lg text-sm font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition';
+                renderSavedDrafts();
+            }
+        }
+
+        function generateScript(e) {
+            e.preventDefault();
+
+            const title = document.getElementById('input-title').value.trim();
+            const ksp = document.getElementById('input-ksp').value.trim();
+            const niche = document.getElementById('input-niche').value;
+            const tone = document.getElementById('input-tone').value;
+
+            document.getElementById('output-placeholder').classList.add('hidden');
+            document.getElementById('output-result').classList.add('hidden');
+            document.getElementById('output-loading').classList.remove('hidden');
+
+            setTimeout(() => {
+                const kspArray = ksp.split('\n').filter(i => i.trim() !== '');
+                const firstKsp = kspArray[0] || 'kualitas terbaik di kelasnya';
+                const secondKsp = kspArray[1] || 'desain praktis dan efisien';
+
+                generatedData = {
+                    id: Date.now(),
+                    timestamp: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }),
+                    title: title,
+                    platform: currentPlatform,
+                    niche: niche,
+                    tone: tone,
+                    hooks: [
+                        { type: 'Pattern Interrupt (Visual/Mental)', text: `Stop scroll! Kalau kamu masih pakai barang lama, fix kamu rugi besar karena ada ${title} ini!` },
+                        { type: 'Curiosity & FOMO', text: `Jujur kaget banget pas nemu ${title} ini... Ternyata fitur ${firstKsp} nya beneran selucu ini?` },
+                        { type: 'Problem - Solution', text: `Pernah gak sih ngerasa ribet banget saat urusan ini? Nih aku kasih racun ${title} yang udah ada ${secondKsp}.` }
+                    ],
+                    scenes: [
+                        { time: '00:00 - 00:03', visual: `Close-up produk ${title} secara cepat (fast transition/cut).`, audio: `[Voiceover Hook]: "Stop scroll! Ini dia barang yang lagi rame banget dibahas..."`, text: `VIRAL BGT! 😱` },
+                        { time: '00:03 - 00:08', visual: `Tunjukkan masalah utama atau kelemahan cara lama tanpa produk ini.`, audio: `[Voiceover]: "Dulu sering banget kesel kan kalau masalah kayak gini terus berulang?"`, text: `Relate gak? 🥺` },
+                        { time: '00:08 - 00:18', visual: `Demonstrasi fitur utama: ${firstKsp}. Tunjukkan cara pakai secara simpel.`, audio: `[Voiceover]: "Nah pas nyobain ${title} ini, beda banget. Liat deh ${firstKsp}."`, text: `FITUR UTAMA ✨` },
+                        { time: '00:18 - 00:25', visual: `Showcase detail pendukung: ${secondKsp} & estetika produk.`, audio: `[Voiceover]: "Bukan cuma itu, dia juga udah ${secondKsp}. Bener-bener worth it."`, text: `GAK NYESEL 👍` },
+                        { time: '00:25 - 00:30', visual: `Point ke arah keranjang kuning / link bio (CTA).`, audio: `[Voiceover]: "Mumpung lagi ready stock dan harga promo, langsung checkout di keranjang kuning ya!"`, text: `CHECKOUT SEKARANG 👇` }
+                    ],
+                    caption: `Jujur ini sih racun banget buat kalian yang nyari ${title}! 🔥\n\nKenapa wajib punya?\n✅ ${firstKsp}\n✅ ${secondKsp}\n\nStoknya terbatas banget, buruan mampir ke keranjang kuning / link di bio sebelum kehabisan ya! 🛒`,
+                    hashtags: [`#${niche.replace(/\s+/g, '')}`, `#Racun${currentPlatform.toUpperCase()}`, `#${title.replace(/\s+/g, '')}`, '#AffiliateViral', '#RekomendasiBarang', '#MustHaveItems']
+                };
+
+                renderOutput(generatedData);
+                document.getElementById('output-loading').classList.add('hidden');
+                document.getElementById('output-result').classList.remove('hidden');
+            }, 1200);
+        }
+
+        function renderOutput(data) {
+            // Render Hooks
+            const hookBox = document.getElementById('hook-container');
+            hookBox.innerHTML = data.hooks.map((h, idx) => `
+                <div class="bg-slate-950 border border-slate-800 p-3.5 rounded-xl flex items-start space-x-3">
+                    <span class="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-400 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">${idx + 1}</span>
+                    <div class="flex-1">
+                        <span class="text-[10px] font-bold text-slate-500 tracking-wider uppercase block mb-0.5">${h.type}</span>
+                        <p class="text-xs text-slate-200 font-medium font-mono">"${h.text}"</p>
+                    </div>
+                </div>
+            `).join('');
+
+            // Render Storyboard Scenes
+            const sceneBox = document.getElementById('scene-container');
+            sceneBox.innerHTML = data.scenes.map(s => `
+                <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-2">
+                    <div class="flex items-center justify-between border-b border-slate-800/60 pb-2">
+                        <span class="text-[11px] font-bold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">${s.time}</span>
+                        <span class="text-[10px] font-semibold text-slate-400 uppercase">On-Screen Text: <span class="text-amber-300 font-mono">${s.text}</span></span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1 text-xs">
+                        <div>
+                            <span class="text-[10px] font-bold text-slate-500 uppercase block">Visual / Shot:</span>
+                            <p class="text-slate-300">${s.visual}</p>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-slate-500 uppercase block">Voiceover / Audio:</span>
+                            <p class="text-slate-300 font-mono">${s.audio}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Render Caption & Hashtags
+            document.getElementById('caption-text').textContent = data.caption;
+            document.getElementById('hashtag-container').innerHTML = data.hashtags.map(h => `
+                <span class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-lg border border-slate-700/60 transition cursor-pointer">${h}</span>
+            `).join('');
+        }
+
+        function saveCurrentDraft() {
+            if (!generatedData) return;
+            const exists = savedDrafts.some(d => d.id === generatedData.id);
+            if (!exists) {
+                savedDrafts.unshift(generatedData);
+                localStorage.setItem('viralkaya_drafts', JSON.stringify(savedDrafts));
+                updateSavedCount();
+                alert('Draft berhasil disimpan!');
+            } else {
+                alert('Draft ini sudah tersimpan!');
+            }
+        }
+
+        function updateSavedCount() {
+            document.getElementById('saved-count').textContent = savedDrafts.length;
+        }
+
+        function renderSavedDrafts() {
+            const list = document.getElementById('saved-list');
+            if (savedDrafts.length === 0) {
+                list.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-slate-500">
+                        <i class="fa-solid fa-folder-open text-3xl mb-2"></i>
+                        <p class="text-sm">Belum ada draft tersimpan.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            list.innerHTML = savedDrafts.map(d => `
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3 relative group">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] uppercase font-bold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">${d.platform}</span>
+                        <span class="text-[10px] text-slate-500">${d.timestamp}</span>
+                    </div>
+                    <h4 class="text-sm font-bold text-slate-100 line-clamp-1">${d.title}</h4>
+                    <p class="text-xs text-slate-400 line-clamp-2">${d.caption}</p>
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-800 text-xs">
+                        <button onclick="loadDraft(${d.id})" class="text-indigo-400 hover:text-indigo-300 font-semibold flex items-center">
+                            Muat Script <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                        <button onclick="deleteDraft(${d.id})" class="text-rose-400 hover:text-rose-300">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadDraft(id) {
+            const draft = savedDrafts.find(d => d.id === id);
+            if (draft) {
+                generatedData = draft;
+                switchTab('generator');
+                renderOutput(draft);
+                document.getElementById('output-placeholder').classList.add('hidden');
+                document.getElementById('output-loading').classList.add('hidden');
+                document.getElementById('output-result').classList.remove('hidden');
+            }
+        }
+
+        function deleteDraft(id) {
+            savedDrafts = savedDrafts.filter(d => d.id !== id);
+            localStorage.setItem('viralkaya_drafts', JSON.stringify(savedDrafts));
+            updateSavedCount();
+            renderSavedDrafts();
+        }
+
+        function clearAllDrafts() {
+            if (confirm('Yakin ingin menghapus seluruh draft tersimpan?')) {
+                savedDrafts = [];
+                localStorage.removeItem('viralkaya_drafts');
+                updateSavedCount();
+                renderSavedDrafts();
+            }
+        }
+
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Teks berhasil disalin!');
+            });
+        }
+
+        function copyFullScript() {
+            if (!generatedData) return;
+            let fullText = `=== SCRIPT VOKAL & STORYBOARD VIRAL ===\n`;
+            fullText += `Topik/Produk: ${generatedData.title}\n`;
+            fullText += `Platform: ${generatedData.platform.toUpperCase()}\n\n`;
+            fullText += `--- PILIHAN HOOK (3 DETIK) ---\n`;
+            generatedData.hooks.forEach((h, i) => {
+                fullText += `${i+1}. [${h.type}]: "${h.text}"\n`;
+            });
+            fullText += `\n--- STORYBOARD SCENE BREAKDOWN ---\n`;
+            generatedData.scenes.forEach(s => {
+                fullText += `[${s.time}] Visual: ${s.visual}\n- Voiceover: ${s.audio}\n- Text On-Screen: ${s.text}\n\n`;
+            });
+            fullText += `--- CAPTION ---\n${generatedData.caption}\n\n`;
+            fullText += `--- HASHTAGS ---\n${generatedData.hashtags.join(' ')}`;
+
+            navigator.clipboard.writeText(fullText).then(() => {
+                alert('Seluruh Script & Storyboard berhasil disalin!');
+            });
+        }
+    </script>
+</body>
+</html>
